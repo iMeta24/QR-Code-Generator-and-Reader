@@ -1,0 +1,18 @@
+# qr_code_tool.py
+
+import qrcode
+from pyzbar.pyzbar import decode
+from PIL import Image
+
+def generate_qr(data, file_name):
+    qr = qrcode.make(data)
+    qr.save(file_name)
+
+def read_qr(file_name):
+    img = Image.open(file_name)
+    decoded_data = decode(img)
+    return decoded_data[0].data.decode() if decoded_data else "No QR Code found"
+
+# Sample usage
+generate_qr("https://github.com", "github_qr.png")
+print(read_qr("github_qr.png"))
